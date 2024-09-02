@@ -6,11 +6,12 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 14:31:29 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/02 19:06:37 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:18:25 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
+#include "lib/libft/lib_printf/ft_printf.h"
 #include <X11/keysym.h>
 
 void	set_hooks(t_all *fractol)
@@ -41,15 +42,28 @@ int	key_press(int key, t_all *fractol)
 	ft_printf("key: %d\n", key);
 	if (key == XK_Escape)
 		clean_close(fractol);
+	else if (key == XK_w)
+		ft_printf("go_up\n");
+	else if (key == XK_a)
+		ft_printf("go_left\n");
+	else if (key == XK_s)
+		ft_printf("go_down\n");
+	else if (key == XK_d)
+		ft_printf("go_right\n");
+	else if (key == XK_Up)
+		ft_printf("go_up\n");
+	else if (key == XK_Left)
+		ft_printf("go_left\n");
+	else if (key == XK_Down)
+		ft_printf("go_down\n");
+	else if (key == XK_Right)
+		ft_printf("go_right\n");
 	return (0);
 }
 
 int	key_release(int key, t_all *fractol)
 {
 	if (key == XK_Escape)
-	{
-		ft_printf("went into XK_Escape");
 		clean_close(fractol);
-	}
 	return (0);
 }

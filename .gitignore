@@ -1,3 +1,7 @@
 *.swp
 lib/libft
 lib/mlx
+a.out
+fractol
+test_*
+obj
