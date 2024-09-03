@@ -6,7 +6,7 @@
 #    By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 15:55:27 by lmeubrin          #+#    #+#              #
-#    Updated: 2024/09/02 17:04:23 by lmeubrin         ###   ########.fr        #
+#    Updated: 2024/09/03 18:15:28 by lmeubrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MAKEFLAGS += --warn-undefined-variables
 .ONESHELL:
 
 CC := cc
-CFLAGS := -Werror -Wall -Wextra
+CFLAGS := -Werror -Wall -Wextra -g
 INCLUDES := -I$(HDRS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(MLX_DIR)
 NAME := fractol
 
@@ -36,7 +36,7 @@ LIBMLX := $(MLX_DIR)/libmlx.a
 
 OBJ_DIR := obj
 
-SRCS := main.c image.c clean_n_close.c hooks.c
+SRCS := main.c image.c clean_n_close.c hooks.c julia.c
 
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

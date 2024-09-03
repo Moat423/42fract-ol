@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/02 19:07:04 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:09:55 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,16 @@
 # include "../lib/libft/lib_printf/ft_printf.h"
 
 # ifndef HEIGHT
-#  define HEIGHT 930
+#  define HEIGHT 930.0
 # endif //HEIGHT
 
 # ifndef WIDTH
-#  define WIDTH 1920
+#  define WIDTH 1920.0
 # endif //WIDTH
+
+# ifndef MAX_ITER
+#  define MAX_ITER 16
+# endif //MAX_ITER
 
 enum {
 	ON_KEYDOWN = 2,
@@ -46,10 +50,16 @@ typedef struct s_img {
 }	t_img;
 
 typedef struct s_pts {
-	int	x;
-	int	y;
-	int	colour;
+	double	x;
+	double	y;
+	int		colour;
 }	t_pts;
+
+typedef struct s_mods {
+	int		zoom;
+	double	xshift;
+	double	yshift;
+}	t_mods;
 
 typedef struct s_all {
 	void	*mlx;
@@ -58,7 +68,16 @@ typedef struct s_all {
 	t_pts	*pts;
 }	t_all;
 
+// defines the c part in the julia function z = z^2 + c which is a complex nb
+typedef struct s_complex {
+	double	real;
+	double	im;
+}	t_complex;
+
 void	ft_mlx_pixel_put(t_img *data, int x, int y, int color);
+int	draw_julia(t_img *img, t_mods *mods);
+int		get_colour(int span, int pix);
+int	julia(int x, int y, t_complex *c, t_mods *mods);
 int		mouse_press(int button, int x, int y, t_all *fractol);
 int		key_release(int key, t_all *fractol);
 int		key_press(int key, t_all *fractol);
