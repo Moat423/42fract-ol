@@ -6,13 +6,16 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/03 19:15:06 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:23:22 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
 #include <stdio.h>
 
+
+	/* c.real = -0.79; */
+	/* c.im = 0.15; */
 int	draw_julia(t_img *img, t_mods *mods)
 {
 	int			colour;
@@ -23,34 +26,38 @@ int	draw_julia(t_img *img, t_mods *mods)
 	mods->zoom = 1;
 	mods->xshift = 0;
 	mods->yshift = 0;
+	mods->maxiter = 500;
 	pixel.y = -1;
 	c.real = -0.7269;
 	c.im = 0.1889;
-	while (++(pixel.y) < HEIGHT)
+	while (++(pixel.y) < img->height)
 	{
-		printf("hello from the loop x pixel: x=%f y=%f\n", pixel.x, pixel.y);
 		pixel.x = -1;
-		while (++(pixel.x) < WIDTH)
+		while (++(pixel.x) < img->width)
 		{
-			iter = julia(pixel.x, pixel.y, &c, mods);
-			printf("iter = %d\n", iter);
-			colour = get_colour(16, iter);
-			printf("pixel: x=%lf y=%lf\n", pixel.x, pixel.y);
+			colour = 0xFF000000;
+			iter = julia(pixel, &c, mods, img);
+			if (iter < mods->maxiter)
+				colour = get_colour(mods->maxiter, iter);
 			ft_mlx_pixel_put(img, pixel.x, pixel.y, colour);
 		}
 	}
 	return (1);
 }
 
-int	julia(int x, int y, t_complex *c, t_mods *mods)
+int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img)
 {
 	int			iter;
 	double		tmpx;
+	double		x;
+	double		y;
 
-	x = ((4.0 * x / WIDTH - 2.0) / mods->zoom) + (mods->xshift / WIDTH);
-	y = ((4.0 * y / HEIGHT - 2.0) / mods->zoom) + (mods->yshift / HEIGHT);
+	x = pixel.x;
+	y = pixel.y;
+	x = ((3.1 * x / img->width - 1.55) / m->zoom) + (m->xshift / img->width);
+	y = ((2.1 * y / img->height - 1.05) / m->zoom) + (m->yshift / img->height);
 	iter = 0;
-	while (iter <= 16 && (x * x + y * y <= 4))
+	while ((x * x + y * y <= 4) && iter < m->maxiter)
 	{
 		tmpx = x * x - y * y + c->real;
 		y = 2 * x * y + c->im;

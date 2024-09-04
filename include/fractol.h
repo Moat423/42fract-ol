@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/03 19:09:55 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:28:20 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_img {
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_pts {
@@ -59,6 +61,7 @@ typedef struct s_mods {
 	int		zoom;
 	double	xshift;
 	double	yshift;
+	int		maxiter;
 }	t_mods;
 
 typedef struct s_all {
@@ -75,9 +78,9 @@ typedef struct s_complex {
 }	t_complex;
 
 void	ft_mlx_pixel_put(t_img *data, int x, int y, int color);
+int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img);
 int	draw_julia(t_img *img, t_mods *mods);
 int		get_colour(int span, int pix);
-int	julia(int x, int y, t_complex *c, t_mods *mods);
 int		mouse_press(int button, int x, int y, t_all *fractol);
 int		key_release(int key, t_all *fractol);
 int		key_press(int key, t_all *fractol);
