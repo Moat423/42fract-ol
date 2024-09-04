@@ -6,11 +6,11 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:49:35 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/04 15:18:34 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:51:47 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	get_colour(int span, int pix)
+int	get_colour_blue(int span, int pix)
 {
 	if (pix > span * 12 / 13)
 		return (0x00abfe6c);
@@ -36,5 +36,63 @@ int	get_colour(int span, int pix)
 		return (0x00003157);
 	else if (pix > span / 13)
 		return (0x00071f40);
+	return (0x000b0b28);
+}
+
+int	get_colour(int span, int pix)
+{
+	if (pix > span * 12 / 13)
+		return (0x00f26418);
+	else if (pix > span * 11 / 13)
+		return (0x00e59c19);
+	else if (pix > span * 10 / 13)
+		return (0x00d8cc1b);
+	else if (pix > span * 9 / 13)
+		return (0x00a3cb1c);
+	else if (pix > span * 8 / 13)
+		return (0x006abe1e);
+	else if (pix > span * 7 / 13)
+		return (0x003ab11f);
+	else if (pix > span * 6 / 13)
+		return (0x0020a42f);
+	else if (pix > span * 5 / 13)
+		return (0x00229751);
+	else if (pix > span * 4 / 13)
+		return (0x00238a6b);
+	else if (pix > span * 3 / 13)
+		return (0x00257d7c);
+	else if (pix > span * 2 / 13)
+		return (0x00265b70);
+	else if (pix > span / 13)
+		return (0x00284163);
+	return (0x00292f56);
+}
+
+int	get_colour_fiery(int span, int pix)
+{
+	if (pix > span * 12 / 13)
+		return (0x00abfe6c);
+	else if (pix > span * 11 / 13)
+		return (0x00c4df4c);
+	else if (pix > span * 10 / 13)
+		return (0x00d2c03b);
+	else if (pix > span * 9 / 13)
+		return (0x00d8a13a);
+	else if (pix > span * 8 / 13)
+		return (0x00d48340);
+	else if (pix > span * 7 / 13)
+		return (0x00c96849);
+	else if (pix > span * 6 / 13)
+		return (0x00b65151);
+	else if (pix > span * 5 / 13)
+		return (0x009e3f55);
+	else if (pix > span * 4 / 13)
+		return (0x00813256);
+	else if (pix > span * 3 / 13)
+		return (0x00622852);
+	else if (pix > span * 2 / 13)
+		return (0x00432048);
+	else if (pix > span / 13)
+		return (0x0025183a);
 	return (0x000b0b28);
 }

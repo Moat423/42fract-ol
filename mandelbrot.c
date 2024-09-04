@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/04 15:52:20 by lmeubrin         ###   ########.fr       */
+/*   Created: 2024/09/04 15:54:17 by lmeubrin          #+#    #+#             */
+/*   Updated: 2024/09/04 16:07:55 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
-#include <stdio.h>
 
-	/* c.real = -0.79; */
-	/* c.im = 0.15; */
-int	draw_julia(t_img *img, t_mods *mods)
+int	draw_mandelbrot(t_img *img, t_mods *mods)
 {
 	int			colour;
 	t_pts		pixel;
@@ -35,7 +32,7 @@ int	draw_julia(t_img *img, t_mods *mods)
 		while (++(pixel.x) < img->width)
 		{
 			colour = 0xFF000000;
-			iter = julia(pixel, &c, mods, img);
+			iter = mandelbrot(pixel, &c, mods, img);
 			if (iter < mods->maxiter)
 				colour = get_colour(mods->maxiter, iter);
 			ft_mlx_pixel_put(img, pixel.x, pixel.y, colour);
@@ -44,23 +41,19 @@ int	draw_julia(t_img *img, t_mods *mods)
 	return (1);
 }
 
-int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img)
+int	mandelbrot(t_pts p, t_complex *c, t_mods *m, t_img *i)
 {
-	int			iter;
-	double		tmpx;
-	double		x;
-	double		y;
+	int		iter;
+	double	tmpx;
 
-	x = pixel.x;
-	y = pixel.y;
-	x = ((3.1 * x / img->width - 1.55) / m->zoom) + (m->xshift / img->width);
-	y = ((2.1 * y / img->height - 1.05) / m->zoom) + (m->yshift / img->height);
+	p.x = ((3.36 * p.x / i->width - -2) / m->zoom) + (m->xshift / i->width);
+	p.y = ((2.24 * p.y / i->height - 1.12) / m->zoom) + (m->yshift / i->height);
 	iter = 0;
-	while ((x * x + y * y <= 4) && iter < m->maxiter)
+	while (p.x * p.x + p.y * p.y <= 4 && iter < m->maxiter)
 	{
-		tmpx = x * x - y * y + c->real;
-		y = 2 * x * y + c->im;
-		x = tmpx;
+		tmpx = p.x * p.x - p.y * p.y + c->real;
+		p.y = 2 * p.x * p.y + c->im;
+		p.x = tmpx;
 		iter++;
 	}
 	return (iter);

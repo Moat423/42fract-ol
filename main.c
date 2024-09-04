@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/04 14:49:44 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:08:32 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	main(int argc, char *argv[])
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
 	set_hooks(&fractol);
 	/* draw_image(&img); */
-	draw_julia(&img, &mods);
+	/* draw_julia(&img, &mods); */
+	draw_mandelbrot(&img, &mods);
 	mlx_put_image_to_window(fractol.mlx, fractol.win, img.img, 0, 0);
 	mlx_loop(fractol.mlx);
 }
