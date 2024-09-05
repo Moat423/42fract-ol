@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/04 16:00:31 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/05 11:59:37 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ typedef struct s_complex {
 }	t_complex;
 
 void	ft_mlx_pixel_put(t_img *data, int x, int y, int color);
-int	mandelbrot(t_pts p, t_complex *c, t_mods *m, t_img *i);
+void	make_image(int fractal, t_all *fractol);
+int	usage(int argc, char *argv);
 int	draw_mandelbrot(t_img *img, t_mods *mods);
+int	mandelbrot(t_pts p, t_mods *m, t_img *i);
 int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img);
 int	draw_julia(t_img *img, t_mods *mods);
 int		get_colour(int span, int pix);

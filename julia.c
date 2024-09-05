@@ -6,12 +6,11 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/04 15:52:20 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/05 11:28:46 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
-#include <stdio.h>
 
 	/* c.real = -0.79; */
 	/* c.im = 0.15; */
