@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 11:28:46 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:55:59 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ int	draw_julia(t_img *img, t_mods *mods)
 	t_complex	c;
 	int			iter;
 
-	mods->zoom = 1;
-	mods->xshift = 0;
-	mods->yshift = 0;
-	mods->maxiter = 500;
 	pixel.y = -1;
 	c.real = -0.7269;
 	c.im = 0.1889;

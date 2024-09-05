@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 12:17:28 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:59:47 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,26 @@ int	darken_colour(int colour);
 int	main(int argc, char *argv[])
 {
 	t_all	fractol;
-	int		fr_nb;
+	t_mods	mods;
 
-	fr_nb = usage(argc, argv[1]);
-	if (fr_nb == -1)
+	init_mods(&mods);
+	fractol.mods = &mods;
+	mods.fractal = usage(argc, argv[1]);
+	if (mods.fractal == -1)
 		return (1);
 	fractol.mlx = mlx_init();
 	fractol.win = mlx_new_window(fractol.mlx, WIDTH, HEIGHT, "fract-ol");
-	make_image(fr_nb, &fractol);
+	make_image(&fractol);
+	mlx_loop_hook(fractol.mlx, make_image, &fractol);
 	mlx_loop(fractol.mlx);
+}
+
+void	init_mods(t_mods *mods)
+{
+	mods->zoom = 1;
+	mods->xshift = 0;
+	mods->yshift = 0;
+	mods->maxiter = 100;
 }
 
 int	usage(int argc, char *string)
@@ -45,26 +56,26 @@ int	usage(int argc, char *string)
 	return (0);
 }
 
-void	make_image(int fractal, t_all *fractol)
+int	make_image(t_all *fractol)
 {
 	t_img	img;
-	t_mods	mods;
 
-	if (fractal == -1)
+	if (fractol->mods->fractal == -1)
 		clean_close(fractol);
-	fractol->view = &img;
 	img.height = 930;
 	img.width = 1395;
 	img.img = mlx_new_image(fractol->mlx, img.width, img.height);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
+	fractol->img = &img;
 	set_hooks(fractol);
-	if (fractal == 1)
-		draw_mandelbrot(&img, &mods);
-	if (fractal == 2)
-		draw_julia(&img, &mods);
-	if (fractal == 0)
+	if (fractol->mods->fractal == 1)
+		draw_mandelbrot(fractol);
+	if (fractol->mods->fractal == 2)
+		draw_julia(&img, fractol->mods);
+	if (fractol->mods->fractal == 0)
 		draw_image(&img);
 	mlx_put_image_to_window(fractol->mlx, fractol->win, img.img, 0, 0);
+	return (1);
 }
 
 int	draw_image(t_img *img)

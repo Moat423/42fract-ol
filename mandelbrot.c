@@ -6,34 +6,31 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:54:17 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 11:42:38 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:00:10 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
 #include <stdio.h>
 
-int	draw_mandelbrot(t_img *img, t_mods *mods)
+int	draw_mandelbrot(t_all *fractol)
 {
 	int			colour;
 	t_pts		pixel;
 	int			iter;
 
-	mods->zoom = 1;
-	mods->xshift = 0;
-	mods->yshift = 0;
-	mods->maxiter = 50;
+	fractol->pts = &pixel;
 	pixel.y = -1;
-	while (++(pixel.y) < img->height)
+	while (++(pixel.y) < fractol->img->height)
 	{
 		pixel.x = -1;
-		while (++(pixel.x) < img->width)
+		while (++(pixel.x) < fractol->img->width)
 		{
 			colour = 0xFF000000;
-			iter = mandelbrot(pixel, mods, img);
-			if (iter < mods->maxiter)
-				colour = get_colour(mods->maxiter, iter);
-			ft_mlx_pixel_put(img, pixel.x, pixel.y, colour);
+			iter = mandelbrot(pixel, fractol->mods, fractol->img);
+			if (iter < fractol->mods->maxiter)
+				colour = get_colour(fractol->mods->maxiter, iter);
+			ft_mlx_pixel_put(fractol->img, pixel.x, pixel.y, colour);
 		}
 	}
 	return (1);

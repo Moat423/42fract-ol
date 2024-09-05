@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 11:59:37 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:05:58 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ enum {
 	ON_DESTROY = 17
 };
 
+enum {
+	UP = 8,
+	RIGHT = 6,
+	LEFT = 4,
+	DOWN = 2
+};
+
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -58,17 +65,19 @@ typedef struct s_pts {
 }	t_pts;
 
 typedef struct s_mods {
-	int		zoom;
+	double	zoom;
 	double	xshift;
 	double	yshift;
 	int		maxiter;
+	int		fractal;
 }	t_mods;
 
 typedef struct s_all {
 	void	*mlx;
 	void	*win;
-	t_img	*view;
+	t_img	*img;
 	t_pts	*pts;
+	t_mods	*mods;
 }	t_all;
 
 // defines the c part in the julia function z = z^2 + c which is a complex nb
@@ -78,9 +87,13 @@ typedef struct s_complex {
 }	t_complex;
 
 void	ft_mlx_pixel_put(t_img *data, int x, int y, int color);
-void	make_image(int fractal, t_all *fractol);
+void	shift(int dir, t_mods *mods);
+void	get_shift(int x, int  y, t_mods *mods, t_img *img);
+void	init_mods(t_mods *mods);
+int	make_image(t_all *fractol);
+int	draw_mandelbrot(t_all *fractol);
 int	usage(int argc, char *argv);
-int	draw_mandelbrot(t_img *img, t_mods *mods);
+/* int	draw_mandelbrot(t_img *img, t_mods *mods); */
 int	mandelbrot(t_pts p, t_mods *m, t_img *i);
 int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img);
 int	draw_julia(t_img *img, t_mods *mods);
