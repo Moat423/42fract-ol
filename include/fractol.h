@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 14:05:58 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:02:01 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_mods {
 	double	yshift;
 	int		maxiter;
 	int		fractal;
+	double	vwid;
 }	t_mods;
 
 typedef struct s_all {
@@ -87,6 +88,7 @@ typedef struct s_complex {
 }	t_complex;
 
 void	ft_mlx_pixel_put(t_img *data, int x, int y, int color);
+t_pts	screen_to_imag(t_pts pix, t_mods *m, int width, int height);
 void	shift(int dir, t_mods *mods);
 void	get_shift(int x, int  y, t_mods *mods, t_img *img);
 void	init_mods(t_mods *mods);

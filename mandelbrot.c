@@ -6,12 +6,11 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:54:17 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 14:00:10 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/07 14:41:45 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
-#include <stdio.h>
 
 int	draw_mandelbrot(t_all *fractol)
 {
@@ -21,6 +20,7 @@ int	draw_mandelbrot(t_all *fractol)
 
 	fractol->pts = &pixel;
 	pixel.y = -1;
+	fractol->mods->vwid = 3.5;
 	while (++(pixel.y) < fractol->img->height)
 	{
 		pixel.x = -1;
@@ -42,11 +42,14 @@ int	mandelbrot(t_pts p, t_mods *m, t_img *i)
 	double	tmpx;
 	double	a;
 	double	b;
+	double	vhei;
 
 	a = 0;
 	b = 0;
-	p.x = ((3.6 * p.x / i->width - 2.4) / m->zoom) + (m->xshift / i->width);
-	p.y = ((2.4 * p.y / i->height - 1.2) / m->zoom) + (m->yshift / i->height);
+	vhei = m->vwid / 1.5;
+	p.x = ((m->vwid * p.x / i->width - m->vwid / 2) - 0.75) / m->zoom \
+		+ m->xshift / i->width;
+	p.y = (vhei * p.y / i->height - vhei / 2) / m->zoom + m->yshift / i->height;
 	iter = 0;
 	while (a * a + b * b <= 4 && iter < m->maxiter)
 	{

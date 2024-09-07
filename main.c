@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 13:59:47 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:01:56 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_mods(t_mods *mods)
 	mods->xshift = 0;
 	mods->yshift = 0;
 	mods->maxiter = 100;
+	mods->vwid = 3;
 }
 
 int	usage(int argc, char *string)
@@ -77,24 +78,14 @@ int	make_image(t_all *fractol)
 	mlx_put_image_to_window(fractol->mlx, fractol->win, img.img, 0, 0);
 	return (1);
 }
-
-int	draw_image(t_img *img)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (++y < img->height)
-	{
-		x = -1;
-		while (++x < img->width)
-			ft_mlx_pixel_put(img, x, y, get_colour(img->height, y));
-	}
-	return (1);
-}
-
-/* int	darken_colour(int colour) */
+/**/
+/* int	draw(t_all *fractol) */
 /* { */
-/* 	while () */
-/* 	return (colour); */
+/* 	if (fractol->mods->fractal == 1) */
+/* 		draw_mandelbrot(fractol); */
+/* 	if (fractol->mods->fractal == 2) */
+/* 		draw_julia(fractol->img, fractol->mods); */
+/* 	if (fractol->mods->fractal == 0) */
+/* 		draw_image(fractol->img); */
+/* 	return (1); */
 /* } */

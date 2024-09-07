@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/05 16:55:59 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:18:46 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	draw_julia(t_img *img, t_mods *mods)
 	pixel.y = -1;
 	c.real = -0.7269;
 	c.im = 0.1889;
+	mods->vwid = 3.1;
 	while (++(pixel.y) < img->height)
 	{
 		pixel.x = -1;
@@ -45,11 +46,20 @@ int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img)
 	double		tmpx;
 	double		x;
 	double		y;
+	t_pts		ipix;
+	/* double		vhei; */
+	/**/
+	ipix = screen_to_imag(pixel, m, img->width, img->height);
+	x = ipix.x;
+	y = ipix.y;
+	/* x = pixel.x; */
+	/* y = pixel.y; */
+	/* vhei = m->vwid / 1.5; */
+	/* x = ((m->vwid * x / img->width - m->vwid / 2) / m->zoom) \ */
+	/* 	+ m->xshift / img->width; */
+	/* y = ((vhei * y / img->height - vhei / 2) / m->zoom \ */
+	/* 	+ m->yshift / img->height); */
 
-	x = pixel.x;
-	y = pixel.y;
-	x = ((3.1 * x / img->width - 1.55) / m->zoom) + (m->xshift / img->width);
-	y = ((2.1 * y / img->height - 1.05) / m->zoom) + (m->yshift / img->height);
 	iter = 0;
 	while ((x * x + y * y <= 4) && iter < m->maxiter)
 	{
@@ -60,3 +70,23 @@ int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img)
 	}
 	return (iter);
 }
+
+t_pts	screen_to_imag(t_pts pix, t_mods *m, int width, int height)
+{
+	t_pts	ip;
+	double	vwidth;
+	double	vheight;
+
+	vwidth = m->vwid;
+	vheight = m->vwid / 1.5;
+	ip.x = ((vwidth * pix.x / width - vwidth / 2) / m->zoom) \
+		+ m->xshift / width;
+	ip.y = ((vheight * pix.y / height - vheight / 2) / m->zoom \
+		+ m->yshift / height);
+	return (ip);
+}
+
+/* t_pts	imag_to_screen((t_pts pix, t_mods *m, int width, int height) */
+/* { */
+/**/
+/* } */
