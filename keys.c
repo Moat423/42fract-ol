@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:06:31 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 10:14:23 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:37:25 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,37 @@ int	key_press(int key, t_all *fractol)
 		ft_printf("go_down\n");
 	else if (key == XK_Right)
 		ft_printf("go_right\n");
+	else if (key == XK_Page_Up || key == XK_Page_Down)
+		change_iter(key, fractol);
+	else if (key == XK_c)
+		change_colourscheme(fractol->mods);
 	return (0);
+}
+
+void	change_iter(int key, t_all *fractol)
+{
+	if (key == XK_Page_Up)
+	{
+		if (fractol->mods->maxiter < 200)
+			fractol->mods->maxiter += 1;
+		else
+			fractol->mods->maxiter += 10;
+	}
+	if (key == XK_Page_Down)
+	{
+		if (fractol->mods->maxiter < 200)
+			fractol->mods->maxiter -= 1;
+		else
+			fractol->mods->maxiter -= 10;
+	}
+}
+
+void	change_colourscheme(t_mods *mods)
+{
+	if (mods->coloursc < 2)
+		mods->coloursc++;
+	else
+		mods->coloursc = 0;
 }
 
 int	key_release(int key, t_all *fractol)

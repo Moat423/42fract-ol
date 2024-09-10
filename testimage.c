@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:42:12 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/07 15:42:30 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:35:41 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	draw_image(t_img *img)
 	{
 		x = -1;
 		while (++x < img->width)
-			ft_mlx_pixel_put(img, x, y, get_colour(img->height, y));
+			ft_mlx_pixel_put(img, x, y, get_colour(0, img->height, y));
 	}
 	return (1);
 }

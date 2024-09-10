@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 13:49:47 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:34:40 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	draw_julia(t_img *img, t_mods *mods)
 {
 	int			colour;
 	t_pts		pixel;
-	t_complex	c;
 	int			iter;
 
 	pixel.y = -1;
@@ -29,9 +28,9 @@ int	draw_julia(t_img *img, t_mods *mods)
 		while (++(pixel.x) < img->width)
 		{
 			colour = 0xFF000000;
-			iter = julia(pixel, &c, mods, img);
+			iter = julia(pixel, &mods->c, mods, img);
 			if (iter < mods->maxiter)
-				colour = get_colour(mods->maxiter, iter);
+				colour = get_colour(mods->coloursc, mods->maxiter, iter);
 			ft_mlx_pixel_put(img, pixel.x, pixel.y, colour);
 		}
 	}
@@ -84,7 +83,17 @@ t_pts	screen_to_imag(t_pts pix, t_mods *m, int width, int height)
 	return (ip);
 }
 
-t_pts	imag_to_screen((t_pts pix, t_mods *m, int width, int height)
+t_pts	imag_to_screen(t_pts ip, t_mods *m, int width, int height)
 {
+	t_pts	pix;
+	double	vwidth;
+	double	vheight;
 
+	vwidth = m->vwid;
+	vheight = m->vwid / 1.5;
+	pix.x = ((ip.x - m->xshift) * m->zoom + vwidth / 2) \
+	* width / vwidth;
+	pix.y = ((ip.y - m->yshift) * m->zoom + vheight / 2) \
+	* height / vheight;
+	return (pix);
 }

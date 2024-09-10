@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 13:47:17 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:05:20 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ t_complex	ft_get_complex(int argc, char **argv)
 	}
 	else
 	{
-		c.real = ft_atod(argv[3]);
-		c.im = ft_atod(argv[4]);
+		c.real = ft_atod(argv[2]);
+		c.im = ft_atod(argv[3]);
 	}
+	return (c);
 }
 
 int	usage(int argc, char *string)
@@ -67,13 +68,15 @@ int	usage(int argc, char *string)
 		ft_printf("usage:\n");
 		ft_printf("./fractol <fractal> \n");
 		ft_printf("./fractol julia <real part> <imaginary part>\n");
-		ft_printf("possible fractals: mandelbrot, julia\n");
+		ft_printf("possible fractals: mandelbrot, julia, tricorn\n");
 		return (-1);
 	}
 	if (!ft_strncmp(string, "mandelbrot", ft_strlen(string)))
 		return (1);
 	if (!ft_strncmp(string, "julia", ft_strlen(string)))
 		return (2);
+	if (!ft_strncmp(string, "tricorn", ft_strlen(string)))
+		return (3);
 	return (0);
 }
 
@@ -106,6 +109,8 @@ int	draw(t_all *fr)
 		draw_mandelbrot(fr);
 	if (fr->mods->fractal == 2)
 		draw_julia(fr->img, fr->mods);
+	if (fr->mods->fractal == 3)
+		draw_tricorn(fr);
 	if (fr->mods->fractal == 0)
 		draw_image(fr->img);
 	mlx_put_image_to_window(fr->mlx, fr->win, fr->img->img, 0, 0);

@@ -6,9 +6,20 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:49:35 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/04 15:51:47 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:28:14 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "include/fractol.h"
+
+int	get_colour(int colourscheme, int span, int value)
+{
+	if (colourscheme == 1)
+		return (get_colour_blue(span, value));
+	else if (colourscheme == 2)
+		return (get_colour_fiery(span, value));
+	return (get_colour_bunt(span, value));
+}
 
 int	get_colour_blue(int span, int pix)
 {
@@ -39,7 +50,7 @@ int	get_colour_blue(int span, int pix)
 	return (0x000b0b28);
 }
 
-int	get_colour(int span, int pix)
+int	get_colour_bunt(int span, int pix)
 {
 	if (pix > span * 12 / 13)
 		return (0x00f26418);
