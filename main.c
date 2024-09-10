@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 17:05:20 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:39:50 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_mods(t_mods *mods)
 	mods->yshift = 0;
 	mods->maxiter = 100;
 	mods->vwid = 3;
+	mods->coloursc = 0;
 }
 
 t_complex	ft_get_complex(int argc, char **argv)
