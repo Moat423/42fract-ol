@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:54:17 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/07 14:41:45 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:17:19 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	draw_mandelbrot(t_all *fractol)
 	fractol->pts = &pixel;
 	pixel.y = -1;
 	fractol->mods->vwid = 3.5;
+	fractol->mods->xshift = -0.75;
 	while (++(pixel.y) < fractol->img->height)
 	{
 		pixel.x = -1;
@@ -47,9 +48,8 @@ int	mandelbrot(t_pts p, t_mods *m, t_img *i)
 	a = 0;
 	b = 0;
 	vhei = m->vwid / 1.5;
-	p.x = ((m->vwid * p.x / i->width - m->vwid / 2) - 0.75) / m->zoom \
-		+ m->xshift / i->width;
-	p.y = (vhei * p.y / i->height - vhei / 2) / m->zoom + m->yshift / i->height;
+	p.x = ((m->vwid * p.x / i->width - m->vwid / 2) + m->xshift) / m->zoom;
+	p.y = (vhei * p.y / i->height - vhei / 2 + m->yshift) / m->zoom;
 	iter = 0;
 	while (a * a + b * b <= 4 && iter < m->maxiter)
 	{
