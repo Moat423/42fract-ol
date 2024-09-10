@@ -6,18 +6,19 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/07 16:02:01 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:48:37 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# include <mlx.h>
-# include <stdlib.h>
+# include "../lib/mlx/mlx.h"
 # include <X11/keysymdef.h>
+# include "../lib/libft/libft_full.h"
 # include "../lib/libft/lib_ft/libft.h"
 # include "../lib/libft/get_next_line/get_next_line.h"
 # include "../lib/libft/lib_printf/ft_printf.h"
+# include <stdlib.h>
 
 # ifndef HEIGHT
 #  define HEIGHT 930.0
@@ -64,13 +65,20 @@ typedef struct s_pts {
 	int		colour;
 }	t_pts;
 
+// defines the c part in the julia function z = z^2 + c which is a complex nb
+typedef struct s_complex {
+	double	real;
+	double	im;
+}	t_complex;
+
 typedef struct s_mods {
-	double	zoom;
-	double	xshift;
-	double	yshift;
-	int		maxiter;
-	int		fractal;
-	double	vwid;
+	double		zoom;
+	double		xshift;
+	double		yshift;
+	int			maxiter;
+	int			fractal;
+	t_complex	c;
+	double		vwid;
 }	t_mods;
 
 typedef struct s_all {
@@ -81,15 +89,12 @@ typedef struct s_all {
 	t_mods	*mods;
 }	t_all;
 
-// defines the c part in the julia function z = z^2 + c which is a complex nb
-typedef struct s_complex {
-	double	real;
-	double	im;
-}	t_complex;
 
 void	ft_mlx_pixel_put(t_img *data, int x, int y, int color);
+t_complex	ft_get_complex(int argc, char **argv);
 t_pts	screen_to_imag(t_pts pix, t_mods *m, int width, int height);
 void	shift(int dir, t_mods *mods);
+int	draw(t_all *fr);
 void	get_shift(int x, int  y, t_mods *mods, t_img *img);
 void	init_mods(t_mods *mods);
 int	make_image(t_all *fractol);

@@ -6,7 +6,7 @@
 #    By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 15:55:27 by lmeubrin          #+#    #+#              #
-#    Updated: 2024/09/07 15:42:42 by lmeubrin         ###   ########.fr        #
+#    Updated: 2024/09/10 10:09:28 by lmeubrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ SANITIZE_FLAGS := -fsanitize=address,undefined
 LIBFT_DIR := ./lib/libft
 LIBFT := $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS := -L$(LIBFT_DIR) -lft
-
 #MiniLibX
 MLX_DIR := ./lib/mlx
 MLX_FLAGS := -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
@@ -37,7 +36,7 @@ LIBMLX := $(MLX_DIR)/libmlx.a
 OBJ_DIR := obj
 
 SRCS := main.c image.c clean_n_close.c hooks.c julia.c colour.c \
-		mandelbrot.c testimage.c
+		mandelbrot.c testimage.c keys.c
 
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
@@ -60,7 +59,8 @@ run: all
 
 # Compiling MiniLibX. Clones from official repo if not present.
 # Output of cloning / compiliation supressed via redirecting '>/dev/null 2>&1'.
-$(LIBMLX):
+$(LIBMLX): 
+	mkdir -p lib
 	@if [ ! -d "$(MLX_DIR)" ]; then \
 		echo "Cloning MiniLibX repository..."; \
 		git submodule add https://github.com/42Paris/minilibx-linux.git $(MLX_DIR) >/dev/null 2>&1; \
@@ -72,6 +72,7 @@ $(LIBMLX):
 
 # Submodules in my own Libft from own repo if not present and compiles
 $(LIBFT):
+	mkdir -p lib
 	@if [ ! -d "$(LIBFT_DIR)" ] || [ -z "$$(ls -A $(LIBFT_DIR))" ]; then \
 		echo "Initializing libft and its submodules..."; \
 		git submodule add -f git@github.com:Moat423/Libft_full.git $(LIBFT_DIR); \
