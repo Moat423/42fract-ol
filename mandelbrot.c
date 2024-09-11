@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:54:17 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 17:33:26 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:13:07 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	draw_mandelbrot(t_all *fr)
 	return (1);
 }
 
-int	mandelbrot(t_pts p, t_mods *m, t_img *i)
+int	mandelbrot(t_pts p, t_mods *m, t_image *i)
 {
 	int		iter;
 	double	tmpx;

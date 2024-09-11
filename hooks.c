@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 14:31:29 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 10:09:40 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:19:19 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_hooks(t_all *fractol)
 	mlx_do_key_autorepeaton(fractol->mlx);
 	mlx_hook(fractol->win, ON_KEYDOWN, 1L << 0, key_press, fractol);
 	mlx_hook(fractol->win, ON_KEYUP, 1L << 1, key_release, fractol);
-	mlx_hook(fractol->win, ON_MOUSEDOWN, 1L << 2, mouse_press, fractol);
+	/* mlx_hook(fractol->win, ON_MOUSEDOWN, 1L << 2, mouse_press, fractol); */
 	/* mlx_hook(fractol->win, ON_MOUSEUP, 1L << 3, mouse_release_hook, fractol); */
 	/* mlx_hook(fractol->win, ON_MOUSEMOVE, 0, motion_hook, fractol); */
 	/* mlx_hook(fractol->win, ON_EXPOSE, 0, expose_hook, fractol); */
@@ -31,28 +31,69 @@ int	mouse_start(int button, int x, int y, t_all *fr)
 	t_pts	pzero;
 	double	vhei;
 	double	vwid;
+	double	x_new;
+	double	y_new;
+	t_pts	dp;
+	t_pts	dp_new;
+	t_pts	full;
 
 	p.x = (double) x;
 	p.y = (double) y;
 	pzero.x = 0;
 	pzero.y = 0;
+	fr->img->width = 1395;
+	printf("width= %d", fr->img->width);
 	vhei = fr->mods->vwid / fr->img->width;
 	vwid = fr->mods->vwid;
+	full.x = vwid;
+	full.y = vhei;
 	ft_printf("mousebutton: %d x=%d y=%d\n", button, x, y);
 	pzero = screen_to_imag(pzero, fr->mods, fr->img->width, fr->img->height);
 	printf("x(0) = %f\n", pzero.x);
 	printf("y(0) = %f\n", pzero.y);
 	p = screen_to_imag(p, fr->mods, fr->img->width, fr->img->height);
-	printf("x(0) = %f\n", p.x);
-	printf("y(0) = %f\n", p.y);
+	printf("x(m) = %f\n", p.x);
+	printf("y(m) = %f\n", p.y);
+	pzero.x = (double) fr->img->width / 2;
+	pzero.y = (double) fr->img->height / 2;
+	pzero = screen_to_imag(pzero, fr->mods, fr->img->width, fr->img->height);
+	printf("x(half) should be zero = %f\n", pzero.x);
+	printf("y(half) should be zero = %f\n", pzero.y);
+	printf("________________\n");
+	printf("width= %d", fr->img->width);
+	full.x = (double) fr->img->width;
+	full.y = (double) fr->img->height;
+	printf("x(leftmost pixel) = %f\n", full.x);
+	printf("y(downmost pixel) = %f\n", full.y);
+	full = screen_to_imag(full, fr->mods, fr->img->width, fr->img->height);
+	printf("x(leftmost IMpixel) = %f\n", dp.x * fr->mods->zoom);
+	printf("y(downmost IMpixel) = %f\n", dp.y * fr->mods->zoom);
+	dp.x = p.x * fr->mods->zoom / (full.x * fr->mods->zoom);
+	dp.y = p.y * fr->mods->zoom / (full.y * fr->mods->zoom);
+	printf("x(distp)converted = %f\n", dp.x);
+	printf("y(distp)converted = %f\n", dp.y);
+	printf("x(distp)converted * 1.1 = %f\n", dp.x * fr->mods->zoom);
+	printf("y(distp)converted * 1.1 = %f\n", dp.y * fr->mods->zoom);
+	full.x = vwid;
+	full.y = vhei;
+	full = screen_to_imag(full, fr->mods, fr->img->width, fr->img->height);
+	dp_new.x = (p.x * fr->mods->zoom) / (full.x / fr->mods->zoom);
+	dp_new.y = (p.y * fr->mods->zoom) / (full.y / fr->mods->zoom);
+	printf("x(distp)converted = %f\n", dp.x);
+	printf("y(distp)converted = %f\n", dp.y);
+	x_new = dp.x - dp_new.x;
+	printf("final x = %f\n", x_new);
+	y_new = dp.y - dp_new.y;
+	printf("final y = %f\n", y_new);
 	if (button == 4)
 	{
 		ft_printf("Zoom in \n");
-		/* fr->mods->xshift +=  */
 	}
 	if (button == 5)
 	{
 		ft_printf("Zoom out \n");
+		fr->mods->xshift += (p.x - pzero.x) + (1 - 1 / fr->mods->zoom);
+		fr->mods->yshift += (p.y - pzero.y) + (1 - 1 / fr->mods->zoom);
 	}
 	printf("shift x: %lf\n", fr->mods->xshift);
 	printf("shift y: %lf\n", fr->mods->yshift);

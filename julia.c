@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 17:34:40 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:12:45 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 	/* c.real = -0.79; */
 	/* c.im = 0.15; */
-int	draw_julia(t_img *img, t_mods *mods)
+int	draw_julia(t_image *img, t_mods *mods)
 {
 	int			colour;
 	t_pts		pixel;
@@ -37,7 +37,7 @@ int	draw_julia(t_img *img, t_mods *mods)
 	return (1);
 }
 
-int	julia(t_pts pixel, t_complex *c, t_mods *m, t_img *img)
+int	julia(t_pts pixel, t_complex *c, t_mods *m, t_image *img)
 {
 	int			iter;
 	double		tmpx;

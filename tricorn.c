@@ -6,13 +6,13 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 17:34:07 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:13:17 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
 
-int	tricorn(t_pts p, t_mods *m, t_img *i)
+int	tricorn(t_pts p, t_mods *m, t_image *i)
 {
 	int		iter;
 	double	tmpx;

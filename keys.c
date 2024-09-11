@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:06:31 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 17:37:25 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:30:51 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 #include "lib/libft/lib_printf/ft_printf.h"
 #include <X11/keysym.h>
 
-int	key_press(int key, t_all *fractol)
+int	key_press(int key, t_all *fr)
 {
 	ft_printf("key: %d\n", key);
 	if (key == XK_Escape)
-		clean_close(fractol);
+		clean_close(fr); //or mlx_loop_end(fr->mlx)
 	else if (key == XK_w)
-		fractol->mods->yshift += 0.005 / fractol->mods->zoom;
+		fr->mods->yshift += 0.005 / fr->mods->zoom;
 	else if (key == XK_a)
-		fractol->mods->xshift += -0.01 / fractol->mods->zoom;
+		fr->mods->xshift += -0.01 / fr->mods->zoom;
 	else if (key == XK_s)
-		fractol->mods->yshift += -0.005 / fractol->mods->zoom;
+		fr->mods->yshift += -0.005 / fr->mods->zoom;
 	else if (key == XK_d)
-		fractol->mods->xshift += 0.01 / fractol->mods->zoom;
+		fr->mods->xshift += 0.01 / fr->mods->zoom;
 	else if (key == XK_Up)
 		ft_printf("go_up\n");
 	else if (key == XK_Left)
@@ -36,9 +36,10 @@ int	key_press(int key, t_all *fractol)
 	else if (key == XK_Right)
 		ft_printf("go_right\n");
 	else if (key == XK_Page_Up || key == XK_Page_Down)
-		change_iter(key, fractol);
+		change_iter(key, fr);
 	else if (key == XK_c)
-		change_colourscheme(fractol->mods);
+		change_colourscheme(fr->mods);
+	/* mlx_put_image_to_window(fr->mlx, fr->win, fr->img->img_ptr, 0, 0); */
 	return (0);
 }
 

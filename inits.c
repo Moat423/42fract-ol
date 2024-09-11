@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image.c                                            :+:      :+:    :+:   */
+/*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 16:28:14 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 14:12:31 by lmeubrin         ###   ########.fr       */
+/*   Created: 2024/09/11 12:15:32 by lmeubrin          #+#    #+#             */
+/*   Updated: 2024/09/11 14:23:21 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
 
-void	ft_mlx_pixel_put(t_image *data, int x, int y, int color)
+void	init_mods(t_mods *mods)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
-	*(unsigned int *)dst = color;
+	mods->zoom = 1;
+	mods->xshift = 0;
+	mods->yshift = 0;
+	mods->maxiter = 100;
+	mods->vwid = 3;
+	mods->coloursc = 0;
 }
 
-/* int	pixel_to_z(int x, int y, int zoom, ) */
-/* { */
-/**/
-/* } */
+void	init_fractol(t_all *fractol)
+{
+	fractol->img = NULL;
+	fractol->win = NULL;
+	fractol->mlx = NULL;
+	fractol->pts = NULL;
+}

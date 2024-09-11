@@ -6,13 +6,13 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:42:12 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/10 17:35:41 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:13:35 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fractol.h"
 
-int	draw_image(t_img *img)
+int	draw_image(t_image *img)
 {
 	int	x;
 	int	y;

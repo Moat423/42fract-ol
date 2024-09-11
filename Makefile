@@ -6,7 +6,7 @@
 #    By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 15:55:27 by lmeubrin          #+#    #+#              #
-#    Updated: 2024/09/10 17:05:41 by lmeubrin         ###   ########.fr        #
+#    Updated: 2024/09/11 12:15:48 by lmeubrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LIBMLX := $(MLX_DIR)/libmlx.a
 OBJ_DIR := obj
 
 SRCS := main.c image.c clean_n_close.c hooks.c julia.c colour.c \
-		mandelbrot.c testimage.c keys.c tricorn.c
+		mandelbrot.c testimage.c keys.c tricorn.c inits.c
 
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
