@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 14:23:36 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:58:28 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ enum {
 	DOWN = 2
 };
 
-typedef struct s_imgage {
+typedef struct s_image {
 	void	*img_ptr;
 	char	*addr;
 	int		bpp;

@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:30:01 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 14:12:45 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:26:27 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,10 @@ int	julia(t_pts pixel, t_complex *c, t_mods *m, t_image *img)
 	double		x;
 	double		y;
 	t_pts		ipix;
-	/* double		vhei; */
-	/**/
+
 	ipix = screen_to_imag(pixel, m, img->width, img->height);
 	x = ipix.x;
 	y = ipix.y;
-	/* x = pixel.x; */
-	/* y = pixel.y; */
-	/* vhei = m->vwid / 1.5; */
-	/* x = ((m->vwid * x / img->width - m->vwid / 2) / m->zoom) \ */
-	/* 	+ m->xshift / img->width; */
-	/* y = ((vhei * y / img->height - vhei / 2) / m->zoom \ */
-	/* 	+ m->yshift / img->height); */
-
 	iter = 0;
 	while ((x * x + y * y <= 4) && iter < m->maxiter)
 	{

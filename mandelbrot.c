@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:54:17 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 14:13:07 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:44:31 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,20 @@ int	draw_mandelbrot(t_all *fr)
 {
 	int			colour;
 	t_pts		pixel;
-	int			iter;
+	int			i;
 
 	fr->pts = &pixel;
 	pixel.y = -1;
 	fr->mods->vwid = 3.5;
-	/* fractol->mods->xshift = -0.75; */
 	while (++(pixel.y) < fr->img->height)
 	{
 		pixel.x = -1;
 		while (++(pixel.x) < fr->img->width)
 		{
 			colour = 0xFF000000;
-			iter = mandelbrot(pixel, fr->mods, fr->img);
-			if (iter < fr->mods->maxiter)
-				colour = get_colour(fr->mods->coloursc, fr->mods->maxiter, iter);
+			i = mandelbrot(pixel, fr->mods, fr->img);
+			if (i < fr->mods->maxiter)
+				colour = get_colour(fr->mods->coloursc, fr->mods->maxiter, i);
 			ft_mlx_pixel_put(fr->img, pixel.x, pixel.y, colour);
 		}
 	}

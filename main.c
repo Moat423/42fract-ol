@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 14:25:44 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:05:21 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ int	main(int argc, char *argv[])
 {
 	t_all	fractol;
 	t_mods	mods;
+	t_image	img;
+	t_all	*f_pointer;
 
+	f_pointer = &fractol;
 	init_mods(&mods);
 	init_fractol(&fractol);
 	fractol.mods = &mods;
+	fractol.img = &img;
 	mods.fractal = usage(argc, argv[1]);
 	if (mods.fractal == -1)
 		return (1);
@@ -32,14 +36,11 @@ int	main(int argc, char *argv[])
 		return (1);
 	fractol.win = mlx_new_window(fractol.mlx, WIDTH, HEIGHT, "fract-ol");
 	if (fractol.win == NULL)
-	{
-		mlx_destroy_display(fractol.mlx);
-		free(fractol.mlx);
-		return (1);
-	}
-	make_image(&fractol);
+		clean_close(&fractol);
+	make_image(f_pointer);
 	mlx_loop_hook(fractol.mlx, make_image, &fractol);
 	mlx_loop(fractol.mlx);
+	clean_close(&fractol);
 	return (0);
 }
 
@@ -79,30 +80,24 @@ int	usage(int argc, char *string)
 	return (0);
 }
 
-int	make_image(t_all *fractol)
+int	make_image(t_all *fr)
 {
-	t_image	img;
-
-	if (fractol->mods->fractal == -1)
+	if (fr->mods->fractal == -1)
 	{
-		mlx_destroy_display(fractol->mlx);
-		free(fractol->mlx);
+		mlx_destroy_display(fr->mlx);
+		free(fr->mlx);
 		exit (1);
 	}
-	fractol->img = &img;
-	fractol->img->height = 930;
-	fractol->img->width = 1395;
-	fractol->img->img_ptr = mlx_new_image(fractol->mlx, img.width, img.height);
-	if (fractol->img->img_ptr == NULL)
-	{
-		mlx_destroy_window(fractol->mlx, fractol->win);
-		mlx_destroy_display(fractol->mlx);
-		free(fractol->mlx);
-		exit(1);
-	}
-	img.addr = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.line_len, &img.endian);
-	set_hooks(fractol);
-	draw(fractol);
+	fr->img->height = 930;
+	fr->img->width = 1395;
+	if (fr->img->img_ptr)
+		mlx_destroy_image(fr->mlx, fr->img->img_ptr);
+	fr->img->img_ptr = mlx_new_image(fr->mlx, fr->img->width, fr->img->height);
+	if (fr->img->img_ptr == NULL)
+		clean_close(fr);
+	fr->img->addr = mlx_get_data_addr(fr->img->img_ptr, &fr->img->bpp, &fr->img->line_len, &fr->img->endian);
+	set_hooks(fr);
+	draw(fr);
 	return (1);
 }
 

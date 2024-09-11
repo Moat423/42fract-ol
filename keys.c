@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:06:31 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 14:30:51 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:59:35 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include "lib/libft/lib_printf/ft_printf.h"
 #include <X11/keysym.h>
 
+		//mlx_loop_end(fr->mlx);
 int	key_press(int key, t_all *fr)
 {
 	ft_printf("key: %d\n", key);
 	if (key == XK_Escape)
-		clean_close(fr); //or mlx_loop_end(fr->mlx)
+		clean_close(fr); 
 	else if (key == XK_w)
 		fr->mods->yshift += 0.005 / fr->mods->zoom;
 	else if (key == XK_a)
@@ -39,7 +40,7 @@ int	key_press(int key, t_all *fr)
 		change_iter(key, fr);
 	else if (key == XK_c)
 		change_colourscheme(fr->mods);
-	/* mlx_put_image_to_window(fr->mlx, fr->win, fr->img->img_ptr, 0, 0); */
+	mlx_put_image_to_window(fr->mlx, fr->win, fr->img->img_ptr, 0, 0);
 	return (0);
 }
 
