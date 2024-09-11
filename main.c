@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 16:05:21 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:34:10 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ int	main(int argc, char *argv[])
 	t_all	fractol;
 	t_mods	mods;
 	t_image	img;
-	t_all	*f_pointer;
 
-	f_pointer = &fractol;
 	init_mods(&mods);
 	init_fractol(&fractol);
 	fractol.mods = &mods;
 	fractol.img = &img;
+	fractol.img->img_ptr = NULL;
 	mods.fractal = usage(argc, argv[1]);
 	if (mods.fractal == -1)
 		return (1);
@@ -37,10 +36,9 @@ int	main(int argc, char *argv[])
 	fractol.win = mlx_new_window(fractol.mlx, WIDTH, HEIGHT, "fract-ol");
 	if (fractol.win == NULL)
 		clean_close(&fractol);
-	make_image(f_pointer);
+	make_image(&fractol);
 	mlx_loop_hook(fractol.mlx, make_image, &fractol);
 	mlx_loop(fractol.mlx);
-	clean_close(&fractol);
 	return (0);
 }
 
