@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 14:31:29 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 15:54:01 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:54:16 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_hooks(t_all *fractol)
 	mlx_do_key_autorepeaton(fractol->mlx);
 	mlx_hook(fractol->win, ON_KEYDOWN, 1L << 0, key_press, fractol);
 	mlx_hook(fractol->win, ON_KEYUP, 1L << 1, key_release, fractol);
-	mlx_hook(fractol->win, ON_MOUSEDOWN, 1L << 2, mouse_press, fractol);
+	mlx_hook(fractol->win, ON_MOUSEDOWN, 1L << 2, mouse_start, fractol);
 	/* mlx_hook(fractol->win, ON_MOUSEUP, 1L << 3, mouse_release_hook, fractol); */
 	/* mlx_hook(fractol->win, ON_MOUSEMOVE, 0, motion_hook, fractol); */
 	/* mlx_hook(fractol->win, ON_EXPOSE, 0, expose_hook, fractol); */
@@ -41,8 +41,6 @@ int	mouse_start(int button, int x, int y, t_all *fr)
 	p.y = (double) y;
 	pzero.x = 0;
 	pzero.y = 0;
-	fr->img->width = 1395;
-	printf("width= %d", fr->img->width);
 	vhei = fr->mods->vwid / fr->img->width;
 	vwid = fr->mods->vwid;
 	full.x = vwid;
@@ -68,17 +66,15 @@ int	mouse_start(int button, int x, int y, t_all *fr)
 	full = screen_to_imag(full, fr->mods, fr->img->width, fr->img->height);
 	printf("x(leftmost IMpixel) = %f\n", dp.x * fr->mods->zoom);
 	printf("y(downmost IMpixel) = %f\n", dp.y * fr->mods->zoom);
-	dp.x = p.x * fr->mods->zoom / (full.x * fr->mods->zoom);
-	dp.y = p.y * fr->mods->zoom / (full.y * fr->mods->zoom);
+	dp.x = p.x / (full.x);
+	dp.y = p.y / (full.y);
 	printf("x(distp)converted = %f\n", dp.x);
 	printf("y(distp)converted = %f\n", dp.y);
 	printf("x(distp)converted * 1.1 = %f\n", dp.x * fr->mods->zoom);
 	printf("y(distp)converted * 1.1 = %f\n", dp.y * fr->mods->zoom);
-	full.x = vwid;
-	full.y = vhei;
 	full = screen_to_imag(full, fr->mods, fr->img->width, fr->img->height);
-	dp_new.x = (p.x * fr->mods->zoom) / (full.x / fr->mods->zoom);
-	dp_new.y = (p.y * fr->mods->zoom) / (full.y / fr->mods->zoom);
+	dp_new.x = (p.x / 1.1) / (full.x / 1.1);
+	dp_new.y = (p.y / 1.1) / (full.y / 1.1);
 	printf("x(distp)converted = %f\n", dp.x);
 	printf("y(distp)converted = %f\n", dp.y);
 	x_new = dp.x - dp_new.x;
@@ -88,6 +84,9 @@ int	mouse_start(int button, int x, int y, t_all *fr)
 	if (button == 4)
 	{
 		ft_printf("Zoom in \n");
+		fr->mods->zoom *= 1.1;
+		fr->mods->xshift = x_new;
+		fr->mods->xshift = y_new;
 	}
 	if (button == 5)
 	{
