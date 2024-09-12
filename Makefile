@@ -6,7 +6,7 @@
 #    By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 15:55:27 by lmeubrin          #+#    #+#              #
-#    Updated: 2024/09/11 12:15:48 by lmeubrin         ###   ########.fr        #
+#    Updated: 2024/09/12 14:47:17 by lmeubrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LIBMLX := $(MLX_DIR)/libmlx.a
 OBJ_DIR := obj
 
 SRCS := main.c image.c clean_n_close.c hooks.c julia.c colour.c \
-		mandelbrot.c testimage.c keys.c tricorn.c inits.c
+		mandelbrot.c keys.c tricorn.c inits.c
 
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
@@ -59,9 +59,9 @@ run: all
 
 # Compiling MiniLibX. Clones from official repo if not present.
 # Output of cloning / compiliation supressed via redirecting '>/dev/null 2>&1'.
-$(LIBMLX): 
+$(LIBMLX):
 	mkdir -p lib
-	@if [ ! -d "$(MLX_DIR)" ]; then \
+	@if [ ! -d "$(MLX_DIR)" ] || [ -z "$$(ls -A $(MLX_DIR))" ]; then \
 		echo "Cloning MiniLibX repository..."; \
 		git submodule add https://github.com/42Paris/minilibx-linux.git $(MLX_DIR) >/dev/null 2>&1; \
 		git submodule init && git submodule update
@@ -84,13 +84,13 @@ $(LIBFT):
 	@make -s -C $(LIBFT_DIR) > /dev/null 2>&1
 
 $(NAME): $(OBJS) $(LIBFT) $(LIBMLX)
-	@printf "%b\rLinking %s %b\n" "$(BOLD)" "$(NAME)" "$(RESET)"
+	@echo -e "$(BOLD)Linking $(NAME)$(RESET)"
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $@
-	@printf "%b\r%b%s%b successfully compiled.\n" "$(BOLD)" "$(YELLOW)" "$(NAME)" "$(RESET)"
+	@echo -e "$(BOLD)$(YELLOW)$(NAME)$(RESET) successfully compiled."
 
 $(OBJ_DIR)/%.o: %.c $(HDRS)
 	mkdir -p $(OBJ_DIR)
-	@printf "%b\rCompiling %s %b\n" "$(BOLD)" "$(NAME)" "$(RESET)"
+	@echo -e "$(BOLD)Compiling $(NAME)$(RESET)"
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 
