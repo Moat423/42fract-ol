@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/12 14:08:43 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:28:17 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_all {
 int			main(int argc, char *argv[]);
 int			usage(int argc, char *string);
 t_complex	ft_get_complex(int argc, char **argv);
+int			put_controls(t_all *fr);
 
 //image.c
 void		ft_mlx_pixel_put(t_image *data, int x, int y, int color);

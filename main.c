@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/12 14:09:51 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:28:38 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char *argv[])
 	if (fractol.win == NULL)
 		clean_close(&fractol);
 	make_image(&fractol);
+	put_controls(&fractol);
 	mlx_loop_hook(fractol.mlx, make_image, &fractol);
 	mlx_loop(fractol.mlx);
 	return (0);
@@ -80,4 +81,27 @@ int	usage(int argc, char *string)
 	if (!ft_strncmp(string, "tricorn", ft_strlen(string)))
 		return (3);
 	return (0);
+}
+
+int	put_controls(t_all *fr)
+{
+	int	st;
+	int	s_col;
+
+	st = 1500;
+	s_col = 0x00f5f0eb;
+	mlx_string_put(fr->mlx, fr->win, st - 50, 60, 0x00e38b27, "CONTROLS");
+	mlx_string_put(fr->mlx, fr->win, st, 100, s_col, "increase iterations:");
+	mlx_string_put(fr->mlx, fr->win, st + 140, 100, s_col, "PgUp");
+	mlx_string_put(fr->mlx, fr->win, st, 120, s_col, "decrease iterations:");
+	mlx_string_put(fr->mlx, fr->win, st + 140, 120, s_col, "PgDn");
+	mlx_string_put(fr->mlx, fr->win, st, 140, s_col, "close:");
+	mlx_string_put(fr->mlx, fr->win, st + 140, 140, s_col, "ESC");
+	mlx_string_put(fr->mlx, fr->win, st, 160, s_col, "change colourscheme:");
+	mlx_string_put(fr->mlx, fr->win, st + 140, 160, s_col, "c");
+	mlx_string_put(fr->mlx, fr->win, st + 50, 250, s_col, "up: W");
+	mlx_string_put(fr->mlx, fr->win, st, 280, s_col, "left: A");
+	mlx_string_put(fr->mlx, fr->win, st + 100, 280, s_col, "right: D");
+	mlx_string_put(fr->mlx, fr->win, st + 50, 310, s_col, "down: S");
+	return (1);
 }
