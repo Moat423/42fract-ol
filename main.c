@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/12 09:16:53 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:09:51 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,39 +80,4 @@ int	usage(int argc, char *string)
 	if (!ft_strncmp(string, "tricorn", ft_strlen(string)))
 		return (3);
 	return (0);
-}
-
-int	make_image(t_all *fr)
-{
-	if (fr->mods->fractal == -1)
-	{
-		mlx_destroy_display(fr->mlx);
-		free(fr->mlx);
-		exit (1);
-	}
-	fr->img->height = 930;
-	fr->img->width = 1395;
-	if (fr->img->img_ptr)
-		mlx_destroy_image(fr->mlx, fr->img->img_ptr);
-	fr->img->img_ptr = mlx_new_image(fr->mlx, fr->img->width, fr->img->height);
-	if (fr->img->img_ptr == NULL)
-		clean_close(fr);
-	fr->img->addr = mlx_get_data_addr(fr->img->img_ptr, &fr->img->bpp, &fr->img->line_len, &fr->img->endian);
-	set_hooks(fr);
-	draw(fr);
-	return (1);
-}
-
-int	draw(t_all *fr)
-{
-	if (fr->mods->fractal == 1)
-		draw_mandelbrot(fr);
-	if (fr->mods->fractal == 2)
-		draw_julia(fr->img, fr->mods);
-	if (fr->mods->fractal == 3)
-		draw_tricorn(fr);
-	if (fr->mods->fractal == 0)
-		draw_image(fr->img);
-	mlx_put_image_to_window(fr->mlx, fr->win, fr->img->img_ptr, 0, 0);
-	return (1);
 }

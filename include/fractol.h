@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/12 11:20:24 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:08:43 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,38 +95,51 @@ typedef struct s_all {
 	t_mods	*mods;
 }	t_all;
 
-void zoom_at_mouse(t_mods *m, t_image *img, t_pts mouse);
-int	mouse_do(int button, int x, int y, t_all *fr);
-void	ft_mlx_pixel_put(t_image *data, int x, int y, int color);
-void	init_fractol(t_all *fractol);
-int	mouse_start(int button, int x, int y, t_all *fr);
-void	change_iter(int key, t_all *fractol);
-int	draw_tricorn(t_all *fractol);
-int	tricorn(t_pts p, t_mods *m, t_image *i);
+//main.c
+int			main(int argc, char *argv[]);
+int			usage(int argc, char *string);
 t_complex	ft_get_complex(int argc, char **argv);
-t_pts	imag_to_screen(t_pts ip, t_mods *m, int width, int height);
-t_pts	screen_to_imag(t_pts pix, t_mods *m, int width, int height);
-void	shift(int dir, t_mods *mods);
-int	draw(t_all *fr);
-void	get_shift(int x, int  y, t_mods *mods, t_image *img);
-void	init_mods(t_mods *mods);
-int	make_image(t_all *fractol);
-int	draw_mandelbrot(t_all *fractol);
-int	usage(int argc, char *argv);
-/* int	draw_mandelbrot(t_img *img, t_mods *mods); */
-int	mandelbrot(t_pts p, t_mods *m, t_image *i);
-int	julia(t_pts pixel, t_complex *c, t_mods *m, t_image *img);
-int	draw_julia(t_image *img, t_mods *mods);
-int		mouse_press(int button, int x, int y, t_all *fractol);
-int		key_release(int key, t_all *fractol);
-int		key_press(int key, t_all *fractol);
-int		clean_close(t_all *fractol);
-void	set_hooks(t_all *fractol);
-int	get_colour_blue(int span, int pix);
-int	get_colour(int colourscheme, int span, int value);
-int	get_colour_bunt(int span, int pix);
-int	get_colour_fiery(int span, int pix);
-void	change_colourscheme(t_mods *mods);
-int	draw_image(t_image *img);
+
+//image.c
+void		ft_mlx_pixel_put(t_image *data, int x, int y, int color);
+int			make_image(t_all *fr);
+int			draw(t_all *fr);
+
+//inits.c
+void		init_mods(t_mods *mods);
+void		init_fractol(t_all *fractol);
+
+//colour.c
+int			get_colour(int colourscheme, int span, int value);
+int			get_colour_fiery(int span, int pix);
+int			get_colour_bunt(int span, int pix);
+int			get_colour_blue(int span, int pix);
+
+//clean_n_close.c
+int			clean_close(t_all *fractol);
+
+//hooks.c
+void		set_hooks(t_all *fractol);
+int			mouse_do(int button, int x, int y, t_all *fr);
+
+//keys.c
+int			key_press(int key, t_all *fr);
+void		change_iter(int key, t_all *fractol);
+void		change_colourscheme(t_mods *mods);
+int			key_release(int key, t_all *fractol);
+
+//julia.c
+int			draw_julia(t_image *img, t_mods *mods);
+int			julia(t_pts pixel, t_complex *c, t_mods *m, t_image *img);
+t_pts		screen_to_imag(t_pts pix, t_mods *m, int width, int height);
+t_pts		imag_to_screen(t_pts ip, t_mods *m, int width, int height);
+
+//mandelbrot.c
+int			draw_mandelbrot(t_image *img, t_mods *mods);
+int			mandelbrot(t_pts p, t_mods *m, t_image *i);
+
+//tricorn.c
+int			tricorn(t_pts p, t_mods *m, t_image *i);
+int			draw_tricorn(t_image *img, t_mods *mods);
 
 #endif // !FRACTOL_H
