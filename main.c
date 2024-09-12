@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:54:26 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 16:34:10 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:16:53 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,20 @@ int	main(int argc, char *argv[])
 t_complex	ft_get_complex(int argc, char **argv)
 {
 	t_complex	c;
+	t_complex	cin;
 
-	if (argc == 2)
+	c.real = -0.7269;
+	c.im = 0.1889;
+	if (argc == 4)
 	{
-		c.real = -0.7269;
-		c.im = 0.1889;
-	}
-	else
-	{
-		c.real = ft_atod(argv[2]);
-		c.im = ft_atod(argv[3]);
+		cin.real = ft_atod(argv[2]);
+		cin.im = ft_atod(argv[3]);
+		if (cin.real >= -2 && cin.real <= 2 && cin.im >= -2 && cin.im <= 2)
+			return (cin);
+		ft_printf("given values out of range\n");
+		ft_printf("proceeding with z = z^2 + (-0.7269 + 0.1889i)\n");
+		ft_printf("range suggestion: both values between -1 and 1\n");
+		ft_printf("possible range: both values between -2 and 2\n");
 	}
 	return (c);
 }

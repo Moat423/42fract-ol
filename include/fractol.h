@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:17:42 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 14:58:28 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:20:24 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # ifndef MAX_ITER
 #  define MAX_ITER 16
 # endif //MAX_ITER
+
+# ifndef ZOOM_FACTOR
+#  define ZOOM_FACTOR 1.1
+# endif //ZOOM_FACTOR
 
 enum {
 	ON_KEYDOWN = 2,
@@ -91,7 +95,8 @@ typedef struct s_all {
 	t_mods	*mods;
 }	t_all;
 
-
+void zoom_at_mouse(t_mods *m, t_image *img, t_pts mouse);
+int	mouse_do(int button, int x, int y, t_all *fr);
 void	ft_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	init_fractol(t_all *fractol);
 int	mouse_start(int button, int x, int y, t_all *fr);
