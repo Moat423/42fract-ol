@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:06:31 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/12 14:14:16 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:34:11 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	key_press(int key, t_all *fr)
 	move_factor = 0.01;
 	if (key == XK_Escape)
 		clean_close(fr); 
-	else if (key == XK_w)
+	else if (key == XK_w || key == XK_Up)
 		fr->mods->yshift -= move_factor / fr->mods->zoom;
-	else if (key == XK_a)
+	else if (key == XK_a || key == XK_Left)
 		fr->mods->xshift -= move_factor / fr->mods->zoom;
-	else if (key == XK_s)
+	else if (key == XK_s || key == XK_Down)
 		fr->mods->yshift += move_factor / fr->mods->zoom;
-	else if (key == XK_d)
+	else if (key == XK_d || key == XK_Right)
 		fr->mods->xshift += move_factor / fr->mods->zoom;
 	else if (key == XK_Page_Up || key == XK_Page_Down)
 		change_iter(key, fr);
