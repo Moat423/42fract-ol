@@ -6,7 +6,7 @@
 /*   By: lmeubrin <lmeubrin@student.42berlin.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:01:29 by lmeubrin          #+#    #+#             */
-/*   Updated: 2024/09/11 15:58:04 by lmeubrin         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:04:02 by lmeubrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	clean_close(t_all *fractol)
 		mlx_destroy_display(fractol->mlx);
 		free(fractol->mlx);
 	}
-	exit(1);
+	exit(0);
 	return (0);
 }
