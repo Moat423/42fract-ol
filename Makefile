@@ -38,27 +38,6 @@ ASAN_FLAGS := -fsanitize=address
 UBSAN_FLAGS := -fsanitize=undefined
 LEAK_FLAGS := -fsanitize=leak
 
-# Targets for different sanitizer builds
-asan: FINAL_CFLAGS = $(CFLAGS) $(ASAN_FLAGS)
-asan: FINAL_LDFLAGS = $(LDFLAGS) $(ASAN_FLAGS)
-asan: fclean $(NAME)
-
-ubsan: FINAL_CFLAGS = $(CFLAGS) $(UBSAN_FLAGS)
-ubsan: FINAL_LDFLAGS = $(LDFLAGS) $(UBSAN_FLAGS)
-ubsan: fclean $(NAME)
-
-leak: FINAL_CFLAGS = $(CFLAGS) $(LEAK_FLAGS)
-leak: FINAL_LDFLAGS = $(LDFLAGS) $(LEAK_FLAGS)
-leak: fclean $(NAME)
-
-# Combined sanitizer (your original sanitize target)
-sanitize: FINAL_CFLAGS = $(CFLAGS) $(SANITIZE_FLAGS)
-sanitize: FINAL_LDFLAGS = $(LDFLAGS) $(SANITIZE_FLAGS)
-sanitize: $(NAME)
-
-# fsanitize
-# SANITIZE_NAME := $(NAME)_sanitize
-
 #Libft
 LIBFT := $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS := -L$(LIBFT_DIR) -lft
@@ -113,6 +92,28 @@ all: $(LIBFT) $(LIBMLX) $(NAME)
 run: all
 	./$(NAME)
 
+# Main program
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJS)
+	@printf "\n$(BOLD)Linking $(NAME)$(RESET)\n"
+	$(CC) $(FINAL_CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) $(FINAL_LDFLAGS) -o $@
+	printf "\n$(GREEN)$(BOLD)Build successful!$(RESET)\n" || \
+	printf "$(RED)$(BOLD)Build failed!$(RESET)\n"
+
+# Compile object files
+$(OBJ_DIR)/%.o: %.c $(LIBMLX) | $(OBJ_DIR)
+	$(call update_progress)
+	@$(CC) $(FINAL_CFLAGS) $(INCLUDES) -c $< -o $@
+
+# # Create/update flags file
+# .PRECIOUS: $(OBJ_DIR)/.flags
+# $(OBJ_DIR)/.flags: | $(OBJ_DIR)
+# 	@printf "$(FINAL_CFLAGS) $(INCLUDES)" > $@
+
+# Create obj directory
+$(OBJ_DIR):
+	@mkdir -p $@
+
+#LIBRARIES
 # Compiling MiniLibX. Clones from official repo if not present.
 # Output of cloning / compiliation supressed via redirecting '>/dev/null 2>&1'.
 $(LIBMLX):
@@ -137,25 +138,24 @@ $(LIBFT):
 		git submodule update --init --recursive -- $(LIBFT_DIR); \
 	fi
 	@make -s -C $(LIBFT_DIR) > /dev/null 2>&1
-# Create obj directory
-$(OBJ_DIR):
-	@mkdir -p $@
 
-# Create/update flags file
-.PRECIOUS: $(OBJ_DIR)/.flags
-$(OBJ_DIR)/.flags: | $(OBJ_DIR)
-	@printf "$(FINAL_CFLAGS) $(INCLUDES)" > $@
+# Targets for different sanitizer builds
+asan: FINAL_CFLAGS = $(CFLAGS) $(ASAN_FLAGS)
+asan: FINAL_LDFLAGS = $(LDFLAGS) $(ASAN_FLAGS)
+asan: fclean $(NAME)
 
-# Compile object files - adding $(OBJ_DIR) as prerequisite
-$(OBJ_DIR)/%.o: %.c $(HDRS) $(LIBMLX) | $(OBJ_DIR)
-	$(call update_progress)
-	@$(CC) $(FINAL_CFLAGS) $(INCLUDES) -c $< -o $@
+ubsan: FINAL_CFLAGS = $(CFLAGS) $(UBSAN_FLAGS)
+ubsan: FINAL_LDFLAGS = $(LDFLAGS) $(UBSAN_FLAGS)
+ubsan: fclean $(NAME)
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJS)
-	@printf "\n$(BOLD)Linking $(NAME)$(RESET)\n"
-	$(CC) $(FINAL_CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) $(FINAL_LDFLAGS) -o $@
-	printf "\n$(GREEN)$(BOLD)Build successful!$(RESET)\n" || \
-	printf "$(RED)$(BOLD)Build failed!$(RESET)\n"
+leak: FINAL_CFLAGS = $(CFLAGS) $(LEAK_FLAGS)
+leak: FINAL_LDFLAGS = $(LDFLAGS) $(LEAK_FLAGS)
+leak: fclean $(NAME)
+
+# Combined sanitizer (your original sanitize target)
+sanitize: FINAL_CFLAGS = $(CFLAGS) $(SANITIZE_FLAGS)
+sanitize: FINAL_LDFLAGS = $(LDFLAGS) $(SANITIZE_FLAGS)
+sanitize: fclean $(NAME)
 
 clean:
 	@printf "$(BOLD)Cleaning object files...$(RESET)\n"
